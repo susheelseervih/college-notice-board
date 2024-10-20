@@ -180,3 +180,15 @@ footer {
     background-color: #1abc9c;
     color: white;
 }
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f1f1f1; /* Light background color to make the text stand out */
+    color: #333; /* Text color */
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    font-size: 0.9em; /* Smaller font size */
+    border-top: 1px solid #ccc; /* Optional border to separate the footer */
+}
