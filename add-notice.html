@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Notice, Events, and Holidays</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .form-container {
+            width: 500px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #34495e;
+        }
+
+        .form-container label {
+            display: block;
+            margin-bottom: 10px;
+            color: #34495e;
+        }
+
+        .form-container input, .form-container textarea, .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #34495e;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Add Notice Form -->
+    <div class="form-container">
+        <h2>Add Notice</h2>
+        <form id="addNoticeForm" onsubmit="return submitNotice()">
+            <label for="branch">Branch</label>
+            <select id="branch" required>
+                <option value="CSE">CSE</option>
+                <option value="ISE">ISE</option>
+                <option value="ECE">ECE</option>
+                <option value="EEE">EEE</option>
+                <option value="CI">CI</option>
+                <option value="MC">MC</option>
+            </select>
+
+            <label for="title">Notice Title</label>
+            <input type="text" id="title" placeholder="Enter Notice Title" required>
+
+            <label for="description">Description</label>
+            <textarea id="description" rows="4" placeholder="Enter Notice Description" required></textarea>
+
+            <label for="pdfFile">Attach PDF Document (optional):</label>
+            <input type="file" id="pdfFile" accept="application/pdf">
+
+            <label for="deleteAfter">Delete After (Date):</label>
+            <input type="date" id="deleteAfter" name="deleteAfter" required>
+
+            <button type="submit">Add Notice</button>
+        </form>
+    </div>
+
+    <!-- Add Event Form -->
+    <div class="form-container">
+        <h2>Add Event</h2>
+        <form id="addEventForm" onsubmit="return submitEvent()">
+            <label for="eventName">Event Name</label>
+            <input type="text" id="eventName" placeholder="Enter Event Name" required>
+
+            <label for="eventPdf">Attach Event PDF Document (optional):</label>
+            <input type="file" id="eventPdf" accept="application/pdf">
+
+            <label for="startDate">Start Date</label>
+            <input type="date" id="startDate" required>
+
+            <label for="endDate">End Date</label>
+            <input type="date" id="endDate" required>
+
+            <button type="submit">Add Event</button>
+        </form>
+    </div>
+
+    <!-- Add Upcoming Holiday Form -->
+    <div class="form-container">
+        <h2>Add Upcoming Holiday</h2>
+        <form id="addHolidayForm" onsubmit="return submitHoliday()">
+            <label for="holidayName">Holiday Name</label>
+            <input type="text" id="holidayName" placeholder="Enter Holiday Name" required>
+
+            <label for="holidayStart">Holiday Start Date</label>
+            <input type="date" id="holidayStart" required>
+
+            <label for="holidayEnd">Holiday End Date</label>
+            <input type="date" id="holidayEnd" required>
+
+            <button type="submit">Add Holiday</button>
+        </form>
+    </div>
+
+    <!-- JavaScript to handle form submission and save to local storage -->
+    <script>
+        function submitNotice() {
+            const branch = document.getElementById("branch").value;
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("description").value;
+            const deleteAfter = document.getElementById("deleteAfter").value;
+            const pdfFile = document.getElementById("pdfFile").files[0];
+
+            let pdfFileURL = '';
+            if (pdfFile) {
+                pdfFileURL = URL.createObjectURL(pdfFile);
+            }
+
+            const notice = {
+                title: title,
+                description: description,
+                dateAdded: new Date().toLocaleDateString(),
+                deleteAfter: deleteAfter,
+                pdfFileURL: pdfFileURL
+            };
+
+            const notices = JSON.parse(localStorage.getItem("notices")) || {};
+            if (!notices[branch]) {
+                notices[branch] = [];
+            }
+            notices[branch].push(notice);
+
+            localStorage.setItem("notices", JSON.stringify(notices));
+
+            alert("Notice added successfully!");
+            document.getElementById("addNoticeForm").reset();
+
+            return false; 
+        }
+
+        function submitEvent() {
+            const eventName = document.getElementById("eventName").value;
+            const eventPdf = document.getElementById("eventPdf").files[0];
+            const startDate = document.getElementById("startDate").value;
+            const endDate = document.getElementById("endDate").value;
+
+            let eventPdfURL = '';
+            if (eventPdf) {
+                eventPdfURL = URL.createObjectURL(eventPdf);
+            }
+
+            const event = {
+                eventName: eventName,
+                startDate: startDate,
+                endDate: endDate,
+                eventPdfURL: eventPdfURL
+            };
+
+            const events = JSON.parse(localStorage.getItem("events")) || [];
+            events.push(event);
+
+            localStorage.setItem("events", JSON.stringify(events));
+
+            alert("Event added successfully!");
+            document.getElementById("addEventForm").reset();
+
+            return false; 
+        }
+
+        function submitHoliday() {
+            const holidayName = document.getElementById("holidayName").value;
+            const holidayStart = document.getElementById("holidayStart").value;
+            const holidayEnd = document.getElementById("holidayEnd").value;
+
+            const holiday = {
+                holidayName: holidayName,
+                holidayStart: holidayStart,
+                holidayEnd: holidayEnd
+            };
+
+            const holidays = JSON.parse(localStorage.getItem("holidays")) || [];
+            holidays.push(holiday);
+
+            localStorage.setItem("holidays", JSON.stringify(holidays));
+
+            alert("Holiday added successfully!");
+            document.getElementById("addHolidayForm").reset();
+
+            return false; 
+        }
+    </script>
+</body>
+</html>

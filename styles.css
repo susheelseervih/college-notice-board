@@ -1,0 +1,182 @@
+/* General Styles */
+/* Section 1: Header */
+
+.head2 {
+    font-family: oblique;
+    background-color: #21272c;
+    display: flex;              /* Use flexbox for centering */
+    justify-content: center;    /* Center horizontally */
+    align-items: center;
+    color: rgb(255, 255, 255);
+}
+header {
+    background-color: #4a90e2; /* Blue color */
+    padding: 20px;
+    color: rgb(91, 52, 52);
+    display: flex;              /* Use flexbox for centering */
+    justify-content: center;    /* Center horizontally */
+    align-items: center;        /* Center vertically */
+    height: 30vh;              /* Take full viewport height */
+    text-align: center;         /* Center the text */
+}
+
+
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff; /* Soft background color */
+    color: #333; /* Dark text color for contrast */
+}
+
+/* Section 1: Header */
+  header {
+    background-color: #4a90e2; /* Beautiful blue */
+    padding: 20px;
+    text-align: center;
+    color: rgb(160, 201, 224); /* White text for header */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add slight shadow for depth */
+} 
+
+header h1 {
+    margin: 0;
+    font-size: 42px;
+    font-weight: bold;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: color 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ffcc00; /* Highlight on hover */
+}
+
+/* Section 2: Image */
+.header-image {
+    display: block;
+    margin: 40px auto;
+    max-width: 80%;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Add shadow for image depth */
+    transition: transform 0.3s ease;
+}
+
+.header-image:hover {
+    transform: scale(1.05); /* Slight zoom effect on hover */
+}
+
+/* Section 3: Additional Links */
+nav ul li a {
+    color: #4a90e2; /* Link color for section 3 */
+}
+
+nav ul li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+nav ul li a:hover {
+    color: #f3f3f3; /* Soft orange color on hover */
+}
+
+/* Section 3 Specific Styling */
+nav ul {
+    padding: 20px;
+    background-color: #ffffff; /* White background for section 3 */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(5, 5, 5, 0.1); /* Shadow for the navigation links */
+    text-align: center;
+}
+
+nav ul li a {
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px 15px;
+    border-radius: 6px;
+    background-color: #4a90e2; /* Same blue color for buttons */
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+nav ul li a:hover {
+    background-color: #ff6f61; /* Orange color on hover */
+}
+
+/* Footer (Optional) */
+footer {
+    background-color: #ffffff;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.sel {
+    display: flex;              /* Use flexbox for centering */
+    justify-content: center;    /* Center horizontally */
+    align-items: center;
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+}
+/* Shared Section Styles (About and Contacts) */
+.section {
+    background-color: #ffffff;
+    padding: 50px;
+    margin: 40px auto;
+    width: 80%;
+    max-width: 1000px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.section h2 {
+    color: #070707;
+    margin-bottom: 20px;
+    font-size: 32px;
+}
+
+.section p {
+    color: #000000;
+    font-size: 18px;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+.section ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.section ul li {
+    background-color: #ecf0f1;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    border-radius: 5px;
+    color: #2c3e50;
+}
+
+.section ul li:hover {
+    background-color: #1abc9c;
+    color: white;
+}

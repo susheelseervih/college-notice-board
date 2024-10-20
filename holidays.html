@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcoming Holidays</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .holiday-item {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+        }
+
+        .holiday-item h3 {
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+        .holiday-item .holiday-dates {
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <h1>Upcoming Holidays</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="events.html">Events</a></li>
+                <li><a href="holidays.html">Upcoming Holidays</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Holidays Section -->
+    <section id="holidaysSection">
+        <h2>All Upcoming Holidays</h2>
+        <div id="holidaysList"></div>
+    </section>
+
+    <!-- JavaScript to load holidays from local storage -->
+    <script>
+        function loadHolidays() {
+            const holidays = JSON.parse(localStorage.getItem("holidays")) || [];
+            const holidaysList = document.getElementById("holidaysList");
+
+            if (holidays.length === 0) {
+                holidaysList.innerHTML = '<p>No upcoming holidays available.</p>';
+            } else {
+                holidays.forEach(function(holiday) {
+                    const holidayItem = document.createElement('div');
+                    holidayItem.className = 'holiday-item';
+
+                    let holidayContent = `<h3>${holiday.holidayName}</h3>`;
+                    holidayContent += `<p class="holiday-dates">Start Date: ${holiday.holidayStart} | End Date: ${holiday.holidayEnd}</p>`;
+
+                    holidayItem.innerHTML = holidayContent;
+                    holidaysList.appendChild(holidayItem);
+                });
+            }
+        }
+
+        // Load holidays on page load
+        window.onload = loadHolidays;
+    </script>
+
+</body>
+</html>

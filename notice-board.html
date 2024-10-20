@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notice Board</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .branch-section {
+            display: none; /* Initially hide all sections */
+        }
+
+        .notice-item {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+
+        .notice-item h3 {
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+        .notice-item .date-added
+        {
+            position: absolute;
+            font-size: 0.9em;
+            color: #777;
+        }
+        .notice-item .delete-after {
+            position: absolute;
+            font-size: 0.9em;
+            color: #f34949;
+        }
+
+        .notice-item .date-added {
+            top: 10px;
+            right: 10px;
+        }
+
+        .notice-item .delete-after {
+            bottom: 10px;
+            right: 10px;
+        }
+
+        .notice-item a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .notice-item a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header for Notice Board Page -->
+    <header>
+        <h1>College Notice Board</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#" onclick="showSection('cse')">CSE Notices</a></li>
+                <li><a href="#" onclick="showSection('ise')">ISE Notices</a></li>
+                <li><a href="#" onclick="showSection('ece')">ECE Notices</a></li>
+                <li><a href="#" onclick="showSection('eee')">EEE Notices</a></li>
+                <li><a href="#" onclick="showSection('ci')">CI Notices</a></li>
+                <li><a href="#" onclick="showSection('mc')">MC Notices</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Notice Board Sections -->
+    <div id="noticeBoard">
+        <!-- CSE Section -->
+        <section class="branch-section" id="cse">
+            <h2>CSE Notices</h2>
+            <div id="cse-notices"></div>
+        </section>
+        
+        <!-- ISE Section -->
+        <section class="branch-section" id="ise">
+            <h2>ISE Notices</h2>
+            <div id="ise-notices"></div>
+        </section>
+
+        <!-- ECE Section -->
+        <section class="branch-section" id="ece">
+            <h2>ECE Notices</h2>
+            <div id="ece-notices"></div>
+        </section>
+
+        <!-- EEE Section -->
+        <section class="branch-section" id="eee">
+            <h2>EEE Notices</h2>
+            <div id="eee-notices"></div>
+        </section>
+
+        <!-- CI Section -->
+        <section class="branch-section" id="ci">
+            <h2>CI Notices</h2>
+            <div id="ci-notices"></div>
+        </section>
+
+        <!-- MC Section -->
+        <section class="branch-section" id="mc">
+            <h2>MC Notices</h2>
+            <div id="mc-notices"></div>
+        </section>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            var sections = document.querySelectorAll('.branch-section');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+
+            // Show the selected section
+            var selectedSection = document.getElementById(sectionId);
+            if (selectedSection) {
+                selectedSection.style.display = 'block';
+            }
+
+            // Load the notices for the selected branch
+            loadNotices(sectionId);
+        }
+
+        function loadNotices(branch) {
+            const notices = JSON.parse(localStorage.getItem("notices")) || {};
+            const branchNotices = notices[branch.toUpperCase()] || [];
+            const noticeContainer = document.getElementById(branch + '-notices');
+
+            // Clear previous notices
+            noticeContainer.innerHTML = '';
+
+            if (branchNotices.length === 0) {
+                noticeContainer.innerHTML = '<p>No notices available for ' + branch.toUpperCase() + ' yet.</p>';
+            } else {
+                // Display notices
+                branchNotices.forEach(function(notice) {
+                    const noticeItem = document.createElement('div');
+                    noticeItem.className = 'notice-item';
+
+                    // Create notice content
+                    let noticeContent = `<h3>${notice.title}</h3><p>${notice.description}</p>`;
+                    noticeContent += `<p class="date-added">Date Added: ${notice.dateAdded}</p>`;
+                    noticeContent += `<p class="delete-after">Delete After: ${notice.deleteAfter}</p>`;
+
+                    // Check if there's a PDF file and add a link
+                    if (notice.pdfFileURL) {
+                        noticeContent += `<p><a href="${notice.pdfFileURL}" target="_blank">View Attached Document</a></p>`;
+                    }
+
+                    noticeItem.innerHTML = noticeContent;
+                    noticeContainer.appendChild(noticeItem);
+                });
+            }
+        }
+    </script>
+</body>
+</html>
